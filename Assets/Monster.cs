@@ -16,6 +16,8 @@ public class Monster : MonoBehaviour
     [SerializeField]
     AudioClip hit;
     float TimeToAttack = 1.5f;
+    [SerializeField]
+    GameObject Playerlocation;
 
     public void Damage(int points, Transform newTarget)
     {
@@ -31,23 +33,20 @@ public class Monster : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log("1");
-        if (target)
-        {
-            GetComponent<NavMeshAgent>().SetDestination(target.position);
-            float distance = Vector3.Distance(target.position, transform.position);
+            float distance = Vector3.Distance(Playerlocation.transform.position, transform.position);
             print(distance);
-            if (distance > 4)
+            if (distance <10)
             {
+                GetComponent<NavMeshAgent>().SetDestination(Playerlocation.transform.position); 
                 myAnimator.SetBool("IsWalking", true);
                 TimeToAttack = 1.5f;
             }
-            else
+            else if(distance<4)
             {
                 myAnimator.SetBool("IsWalking", false);
                 Attack();
             }
-        }
+        
     }
 
     void Attack()
