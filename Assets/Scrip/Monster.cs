@@ -12,21 +12,20 @@ public class Monster : MonoBehaviour
     Animator myAnimator;
     [SerializeField]
     AudioSource myAudioSource;
-    private Transform target;
     [SerializeField]
     AudioClip hit;
-    float TimeToAttack = 1.5f;
+    float TimeToAttack=0;
     [SerializeField]
     GameObject Playerlocation;
+    private bool playOnceMyClp=true;
 
-    public void Damage(int points, Transform newTarget)
+    public void Damage(int points)
     {
         Health -= points;
         if (Health <= 0)
             Destroy(gameObject);
         else
         {
-            target = newTarget;
             myAudioSource.Play();
         }
 
@@ -35,18 +34,21 @@ public class Monster : MonoBehaviour
     {
             float distance = Vector3.Distance(Playerlocation.transform.position, transform.position);
             print(distance);
-            if (distance <10)
-            {
-                GetComponent<NavMeshAgent>().SetDestination(Playerlocation.transform.position); 
-                myAnimator.SetBool("IsWalking", true);
-                TimeToAttack = 1.5f;
-            }
-            else if(distance<4)
+
+
+        if (distance < 10)
+        {
+            if (playOnceMyClp)
+                GetComponent<AudioSource>().Play();
+            playOnceMyClp = false;
+            GetComponent<NavMeshAgent>().SetDestination(Playerlocation.transform.position);
+            myAnimator.SetBool("IsWalking", true);
+            if (distance < 3)
             {
                 myAnimator.SetBool("IsWalking", false);
                 Attack();
             }
-        
+        }       
     }
 
     void Attack()
@@ -54,13 +56,13 @@ public class Monster : MonoBehaviour
         TimeToAttack -= Time.deltaTime;
         if (TimeToAttack > 0)
             return;
-        TimeToAttack = 1.5f;
-        Player player = target.GetComponent<Player>();
+        TimeToAttack =0.5f;
+        Player player = Playerlocation.GetComponent<Player>();
         if (player)
         {
-            myAnimator.SetTrigger("IsAttacking");
+            myAnimator.SetTrigger("Attack");
             player.Damage(10);
-            myAudioSource.clip = hit;
+            
 
         }
 
