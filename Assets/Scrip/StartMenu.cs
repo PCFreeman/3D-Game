@@ -15,6 +15,7 @@ public class StartMenu : MonoBehaviour {
     [SerializeField]
     private GameObject Ingame;
 
+    public GameObject portal;
 
     public void Play()
     {
@@ -22,7 +23,8 @@ public class StartMenu : MonoBehaviour {
         Player.SetActive(true);
         Ingame.SetActive(true);
         Menu.SetActive(false);
-
+        Vector3 position = new Vector3(Random.Range(459f, 225f), 0, Random.Range(208f, 440f));
+        portal.transform.position = position;
     }
     public void Exit()
     {
