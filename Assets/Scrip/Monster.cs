@@ -36,7 +36,7 @@ public class Monster : MonoBehaviour
             print(distance);
 
 
-        if (distance < 10)
+        if (distance < 20)
         {
             if (playOnceMyClp)
                 GetComponent<AudioSource>().Play();
