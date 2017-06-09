@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class Player : MonoBehaviour
 {
     private const int MAX_HEALTH = 100;
@@ -19,12 +20,8 @@ public class Player : MonoBehaviour
         Health -= points;
    
         if (Health <= 0)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        else
-        {
-            myAudioSourse.clip = PlayerHurt;
-            myAudioSourse.Play();
-        }
+        {SceneManager.LoadScene(3); }
+            
 
     }
 
