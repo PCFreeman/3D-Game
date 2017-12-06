@@ -41,7 +41,7 @@ public class Monster : MonoBehaviour
             if (playOnceMyClp)
                 GetComponent<AudioSource>().Play();
             playOnceMyClp = false;
-            GetComponent<NavMeshAgent>().SetDestination(Playerlocation.transform.position);
+            GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(Playerlocation.transform.position);
             myAnimator.SetBool("IsWalking", true);
             if (distance < 3)
             {

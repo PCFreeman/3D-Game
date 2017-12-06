@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour {
     {
         if (target)
         {
-            GetComponent<NavMeshAgent>().SetDestination(target.position);
+            GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(target.position);
             float distance = Vector3.Distance(target.position, transform.position);
             print(distance);
             if (distance > 4)
